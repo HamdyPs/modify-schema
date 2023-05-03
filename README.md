@@ -8,14 +8,14 @@
 if we want to add a column, use this syntax:
 
 ```js
-    ALTER DATABASE databaseName ADD columnName datatype;
+    ALTER TABLE databaseName ADD columnName SET DATA TYPE datatype;
 ```
 
 
 this next example add an "talent" to the "students" table
 
 ```js
-    ALTER DATABASE students ADD talent varchar(255);
+    ALTER TABLE students ADD talent SET DATA TYPE varchar(255);
 ```
 
 ## ALTER TABLE - DROP COLUMN
@@ -71,7 +71,7 @@ notic: if you want to add datatype while creating this new column u can write af
 ``use this syntax to add new column``
 
 ```js
-    ALTER DATABASE users ADD country VARCHAR(255);
+    ALTER TABLEx     users ADD country VARCHAR(255);
 ```
 look how ``user table`` will be..?
 
@@ -88,7 +88,7 @@ let's say that username's datatype is ``VARCHAR()``, now we want to change ``use
 open your SQL SHELL then follow this syntax:
 
 ```js
-ALTER TABLE users ALTER COLUMN username TEXT;
+ALTER TABLE users ALTER COLUMN username SET DATA TYPE TEXT;
 ```
 
 notice: that ``username's datatype`` now became ``TEXT``
@@ -113,3 +113,30 @@ let's see how ``users table`` will look like now..?
 we can notice that, ``country column`` that we have added before has been deleted from the ``users table``.
 
 
+## what is downtime?
+
+it's a period of time when database is not available for users to access and modify.
+
+#### when does it happen..?
+
+- for example: when make modify or change on database, such as:
+1- adding or removing colmuns, in this case it can cause delay or disruption.
+
+## what is migration?
+
+- it's a proccess allows to manage changes to database schema safily, prevent losing data.
+
+
+#### Zero-downTime
+
+it's a way or a soultion which give us the ability to make any changes on database or system without any impact on the availablity of the database to users.
+
+it requiers a great planning, to avoid or prevent any disruption for user and allows him to continue to read or change data.
+
+## How to Update your Database Schema Without Downtime...?
+
+#### there are three ways...
+
+- Rolling update: allows to update one table  while keeping the rest of the database available
+- Blue-green deployment: strategy for managing database updates and migrations, it allows for updates to be made without disrupting user access or causing downtime,,, creating a duplicate database with the updated schema, and then switching traffic to the new database once it is ready. This can be done by updating the configuration of the application to point to the new database, and then redirecting traffic from the old database to the new one.
+- Online schema change tools: There are various tools available that can modify the schema of a database while keeping it online and available to users
