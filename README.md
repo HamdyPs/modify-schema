@@ -8,14 +8,14 @@
 if we want to add a column, use this syntax:
 
 ```js
-    ALTER TABLE databaseName ADD columnName SET DATA TYPE datatype;
+    ALTER TABLE tableName ADD columnName datatype;
 ```
 
 
 this next example add an "talent" to the "students" table
 
 ```js
-    ALTER TABLE students ADD talent SET DATA TYPE varchar(255);
+    ALTER TABLE students ADD talent varchar(255);
 ```
 
 ## ALTER TABLE - DROP COLUMN
@@ -27,7 +27,7 @@ now, if we want to delete a column in a table, use this syntax:
 this next example will delete a column 'birth' from students table
 
 ```js
-   ALTER TABLE students DROP COLUMN birth;
+   ALTER TABLE students DROP COLUMN people;
 ```
 
 
@@ -40,7 +40,7 @@ with alter table operation we also can rename our table, this is the syntax:
 
 lets see an example in which we will change "students" table to "people":
 ```js
-   ALTER TABLE students RENAME COLUMN students to people;
+   ALTER TABLE students RENAME COLUMN talent to people;
 ```
 
 ## ALTER TABLE - ALTER/MODIFY DATATYPE
@@ -48,7 +48,7 @@ in addetion, with ALTER TABLE we have the ability to change the datatype of any 
 
 use this syntax to change the datatype:
 ```js
-ALTER TABLE table_name ALTER COLUMN column_name datatype;
+ALTER TABLE table_name ALTER COLUMN column_name SET DATA TYPE datatype;
 ```
 
 ### now we will impliment everything we have learned to see exactly how everything works:
@@ -71,7 +71,7 @@ notic: if you want to add datatype while creating this new column u can write af
 ``use this syntax to add new column``
 
 ```js
-    ALTER TABLEx     users ADD country VARCHAR(255);
+    ALTER TABLE  users ADD country VARCHAR(255);
 ```
 look how ``user table`` will be..?
 
@@ -140,3 +140,62 @@ it requiers a great planning, to avoid or prevent any disruption for user and al
 - Rolling update: allows to update one table  while keeping the rest of the database available
 - Blue-green deployment: strategy for managing database updates and migrations, it allows for updates to be made without disrupting user access or causing downtime,,, creating a duplicate database with the updated schema, and then switching traffic to the new database once it is ready. This can be done by updating the configuration of the application to point to the new database, and then redirecting traffic from the old database to the new one.
 - Online schema change tools: There are various tools available that can modify the schema of a database while keeping it online and available to users
+
+
+## Rolling Update Steps:
+Let's say we have ```users table``` 
+
+```sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+   
+);
+```
+
+
+### Step 1
+create a new table with the updated schema
+
+
+```sql
+CREATE TABLE users_new (
+    id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    phone_number VARCHAR(20) NOT NULL
+);
+```
+
+
+### Step 2
+Copy the data from the old "users" table to the new "users_new" table
+
+```sql
+INSERT INTO users_new (id, name, email )
+SELECT id, name, email FROM users;
+```
+
+
+### Step 3
+Rename the old "users" table to "users_old"
+
+```sql
+ALTER TABLE users RENAME TO users_old;
+```
+
+### Step 4
+Rename the new "users_new" table to "users"
+
+```sql
+ALTER TABLE users_new RENAME TO users;
+```
+
+### step 5
+Drop the old "users_old" table
+
+```sql
+Drop Table users_old;
+```
+
