@@ -63,3 +63,52 @@ here is an example of ```users``` table :
 |1|ali|ali@gmail.com|123123|
 |2|sara|sara@gmail.com|sara123123|
 |3|ahmed|ahmed@gmail.com|ahmed.idk|
+
+let's now try to add a new ``column country`` to ``users table``.
+
+notic: if you want to add datatype while creating this new column u can write after the column name which datatype you want.
+``use this syntax to add new column``
+
+```js
+    ALTER DATABASE users ADD country VARCHAR(255);
+```
+look how ``user table`` will be..?
+
+|id|username|email|password|country|
+|--|--------|-----|--------|-------|
+|1|ali|ali@gmail.com|123123||
+|2|sara|sara@gmail.com|sara123123||
+|3|ahmed|ahmed@gmail.com|ahmed.idk||
+
+## Change Data Type Example
+
+let's say that username's datatype is ``VARCHAR()``, now we want to change ``username's datatype`` to ``TEXT``
+
+open your SQL SHELL then follow this syntax:
+
+```js
+ALTER TABLE users ALTER COLUMN username TEXT;
+```
+
+notice: that ``username's datatype`` now became ``TEXT``
+
+## DROP COLUMN Example
+
+in this example, we will learn and see how to drop a ``specifc column`` in the table, so know we want to drop ``country column`` from ``users table``
+
+open your SQL SHELL, then use this syntax:
+```js
+   ALTER TABLE users DROP COLUMN country;
+```
+
+let's see how ``users table`` will look like now..?
+
+|id|username|email|password|
+|--|--------|-----|--------|
+|1|ali|ali@gmail.com|123123|
+|2|sara|sara@gmail.com|sara123123|
+|3|ahmed|ahmed@gmail.com|ahmed.idk|
+
+we can notice that, ``country column`` that we have added before has been deleted from the ``users table``.
+
+
