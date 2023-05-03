@@ -4,6 +4,7 @@
 
 ## ALTER TABLE - ADD Column
 
+
 if we want to add a column, use this syntax:
 
 ```js
