@@ -50,6 +50,12 @@ use this syntax to change the datatype:
 ```js
 ALTER TABLE table_name ALTER COLUMN column_name SET DATA TYPE datatype;
 ```
+#### notice: 
+how to check the column datatypes 
+
+```sql
+select pg_typeof(column_name) as data  from table_name;
+```
 
 ### now we will impliment everything we have learned to see exactly how everything works:
 
@@ -124,7 +130,7 @@ it's a period of time when database is not available for users to access and mod
 
 ## what is migration?
 
-- it's a proccess allows to manage changes to database schema safily, prevent losing data.
+- it's a proccess allows to manage changes to database schema safily.
 
 
 #### Zero-downTime
